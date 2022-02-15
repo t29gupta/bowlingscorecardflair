@@ -1,46 +1,71 @@
-# Getting Started with Create React App
+# Bowling Scoreboard In React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- This is a Bowling scoreboard
+- Built in React (17) with TypeScript
+- For tests I'm using jest with Enzyme
+- Project base created from 'npx create-react-app@latest <projectName> --template typescript'
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+---
 
-### `npm start`
+1.  node installed
+2.  npm
+3.  Visual studio code
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How to run
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+- Open project with VS code
+- Run `npm start` command in terminal
+- Click `New Game` button to start the game
+- At any time to restart the game
+  - Refreshing the page will clear all scores and user will have to start from scratch
+  - User can click on `Restart Game` button
+- To score Press the appropriate number buttons
+- After 10 frames Final score will be shown at the bottom of the page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to test
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Open new terminal in VS code
+- Run `npm test` command in terminal
+- I've written some basic and advanced render tests for the scoreboard and other controls
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## My Approach
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+- I started by creating a basic score board so that dev and testing of logic gets easier in further steps
+- I'm using tables for the scoreboard
+- I'm using functional components in the application although same can be achieved by using the Class components as well
+- Score calculation:
+  - After every bowl I'm looking for last 2 frames score status to calculate the strike and spare values for previous frames
+  - I'm getting the unscored frames in 1 go. Same can be achieved using recursive logic as well
+  - 10th frame calculation:
+    - in 10th frame user can roll 3 times according to normal Bowling rules of scoring.
+    - if the user strikes in first Bowl, he/she gets a chance to roll 2 more times there by either getting 2 strikes or a spare or normal 2 frame score
+    - If the user scores a spare in first 2 bowls then they get the 3rd bowl to comlete the score.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Improvements
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- I used the table component for creating the score board due to time constraints. Table components increases the repetition of the code and the page is also tedious.
+- Ideally I would preffer to use a block for 1 frame with flex css styling. This makes the code more readble and less prone to errors and render issues
+- This would also benefit with the styling options withiout cluttering the jsx
+- I'm using components local state for keeping the scores. Better way would be to go with global states using Redux
+- I've written only Render tests. Some usint tests for testing the score logic also neeeds to be implemented
+- off-course the solution still needs some refactoring
+- Can add multiplayer support in future
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Comments
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+I have added some minor comments every where in code to explain my mindset while taking that decision. Usually I want my code to be self-explanatory and avoid comments unless absolutely needed.
+My approach in this project was to start with minimum required and then extend when needed.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Looking forward to the feedback. Many Thanks!
