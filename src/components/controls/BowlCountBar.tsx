@@ -1,12 +1,12 @@
 import React from "react";
-import { SphereButton } from "./controls/SphereButton";
+import { SphereButton } from "./SphereButton";
 
 type NumberArrType = {
   value: number;
   disabled: boolean;
 };
 
-type ButtonProps = {
+export type ButtonProps = {
   GameOver: boolean;
   handleClick: (
     event: React.MouseEvent<HTMLButtonElement>,

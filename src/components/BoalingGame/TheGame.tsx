@@ -1,14 +1,14 @@
 import React, { useReducer, useState } from "react";
 import { ScoreBoard } from "../scoreBoard/ScoreBoard";
 
-import Frame, { Frame10 } from "../../Types/Frame";
+import Frame, { Frame10, frameIds } from "../../Types/Frame";
 import BowlingGame from "../../Types/BowlingGame";
 import { BowlAction, GameState } from "../../Types/GameModels";
 import { PinnsDownType } from "../../Types/PinnsDown";
 import { rollBowl1 } from "./RollBowl/rollBowl1";
 import { rollBowl2 } from "./RollBowl/rollBowl2";
 import { rollBowl3 } from "./RollBowl/rollBowl3";
-import { BowlCountBar } from "../BowlCountBar";
+import { BowlCountBar } from "../controls/BowlCountBar";
 
 const initialState = {
   currentGame: null,
@@ -124,6 +124,8 @@ const reducer = (state: GameState, action: BowlAction) => {
 export const TheGame = () => {
   const [rollNumber, setRollNumber] = useState<1 | 2 | 3>(1);
 
+  const [inValidPinsCountPressed, setInValidPinsCountPressed] = useState(false);
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onClickBowl = (
@@ -156,6 +158,7 @@ export const TheGame = () => {
           GameFrames,
           dispatch,
           setRollNumber,
+          setInValidPinsCountPressed,
         });
 
         if (CurrentFrame.FrameId === 10) {
@@ -164,7 +167,13 @@ export const TheGame = () => {
         }
       } else {
         console.log(CurrentFrame as Frame10, pinnsDropped, GameFrames);
-        rollBowl3(CurrentFrame as Frame10, pinnsDropped, GameFrames, dispatch);
+        rollBowl3(
+          CurrentFrame as Frame10,
+          pinnsDropped,
+          GameFrames,
+          dispatch,
+          setInValidPinsCountPressed
+        );
       }
     }
   };
@@ -186,8 +195,19 @@ export const TheGame = () => {
             Restart Game
           </button>
           <br />
+          <br />
 
           <BowlCountBar handleClick={onClickBowl} GameOver={state.GameOver} />
+          <br />
+          {inValidPinsCountPressed && (
+            <label
+              data-test="errorLabel"
+              style={{ color: "red", fontWeight: "bold" }}
+            >
+              Invalid Pinns Pressed
+            </label>
+          )}
+          <br />
 
           <ScoreBoard
             gameFrames={state.currentGame.GameFrames}

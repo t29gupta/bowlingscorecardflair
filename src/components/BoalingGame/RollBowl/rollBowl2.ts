@@ -10,6 +10,7 @@ type rollBowlProps = {
   setRollNumber: React.Dispatch<React.SetStateAction<1 | 2 | 3>>;
   GameFrames: GameFramesType;
   dispatch: React.Dispatch<BowlAction>;
+  setInValidPinsCountPressed: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const rollBowl2 = ({
@@ -18,6 +19,7 @@ export const rollBowl2 = ({
   setRollNumber,
   GameFrames,
   dispatch,
+  setInValidPinsCountPressed,
 }: rollBowlProps) => {
   const curFrame = { ...CurrentFrame };
 
@@ -26,7 +28,10 @@ export const rollBowl2 = ({
     (curFrame.FrameId !== 10 || !curFrame.IsStrike) &&
     curFrame.Roll1 + pinnsDropped > 10
   ) {
+    setInValidPinsCountPressed(true);
     return;
+  } else {
+    setInValidPinsCountPressed(false);
   }
   curFrame.Roll2 = pinnsDropped;
 
@@ -50,7 +55,10 @@ export const rollBowl2 = ({
     } else {
       // validate pinnes dropped
       if (CurrentFrame.Roll1 + pinnsDropped > 10) {
+        setInValidPinsCountPressed(true);
         return;
+      } else {
+        setInValidPinsCountPressed(false);
       }
 
       if (curFrame.Roll1 + pinnsDropped === 10) {

@@ -8,7 +8,7 @@ type CustomButtomProps = {
 
 export const SphereButton = ({ children, ...rest }: CustomButtomProps) => {
   return (
-    <button className="pushable" {...rest}>
+    <button data-test={`btn${rest.value}`} className="pushable" {...rest}>
       <span className="shadow"></span>
       <span className="edge"></span>
       <span className="front">{rest.value}</span>

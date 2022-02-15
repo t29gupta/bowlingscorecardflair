@@ -44,4 +44,8 @@ table.ScoreTable {
   table.ScoreTable tr:nth-child(2) td:last-child {
     border-bottom: 1px solid;
   }
+
+  td.totalScore{
+    border-top: 0px;
+  }
   

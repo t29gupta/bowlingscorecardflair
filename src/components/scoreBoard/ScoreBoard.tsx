@@ -28,14 +28,14 @@ export const ScoreBoard = ({ gameFrames, TotalScore }: ScoreBoardProps) => {
 
           <tr>
             {getFrameSubScoreRow(gameFrames)}
-            <td id="TotalScoreRow" colSpan={6}>
+            <td data-test="TotalScore" id="TotalScoreRow" colSpan={6}>
               {TotalScore}
             </td>
           </tr>
 
           <tr>
             {getFrameScoreRow(gameFrames)}
-            <td id="TotalScoreRow1" colSpan={6}></td>
+            <td className="totalScore" id="TotalScoreRow1" colSpan={6}></td>
           </tr>
         </tbody>
       </table>
@@ -56,7 +56,7 @@ const getFrameHeaders = (
 
   for (let i = 1; i <= frameCount; i++) {
     thArr.push(
-      <th key={`head${i}`} id={`head${i}`} colSpan={6}>
+      <th data-test={`head${i}`} key={`head${i}`} id={`head${i}`} colSpan={6}>
         {`Frame ${i}`}
       </th>
     );
@@ -81,6 +81,7 @@ const getFrameSubScoreRow = (
 
     tdArr.push(
       <td
+        data-test={`ss${frame.FrameId}0`}
         key={`ss${frame.FrameId}0`}
         id={`ss${frame.FrameId}0`}
         colSpan={frame.FrameId === 10 ? 2 : 3}
@@ -101,12 +102,13 @@ const getFrameSubScoreRow = (
 
     tdArr.push(
       <td
+        data-test={`ss${frame.FrameId}1`}
         key={`ss${frame.FrameId}1`}
         id={`ss${frame.FrameId}1`}
         colSpan={frame.FrameId === 10 ? 2 : 3}
       >
         {frame.FrameId === 10
-          ? frame.IsSpare
+          ? frame.Roll1 + frame.Roll2 === 10
             ? "/"
             : frame.Roll2 === 10
             ? "X"
@@ -124,7 +126,12 @@ const getFrameSubScoreRow = (
     );
     frame.FrameId === 10 &&
       tdArr.push(
-        <td key={`ss${frame.FrameId}2`} id={`ss${frame.FrameId}2`} colSpan={2}>
+        <td
+          data-test={`ss${frame.FrameId}2`}
+          key={`ss${frame.FrameId}2`}
+          id={`ss${frame.FrameId}2`}
+          colSpan={2}
+        >
           {frame.Roll3 === 10
             ? "X"
             : frame.Roll2 + frame.Roll3 === 10
@@ -155,6 +162,7 @@ const getFrameScoreRow = (
 
     tdArr.push(
       <td
+        data-test={`frameScore${frame.FrameId}`}
         key={`frameScore${frame.FrameId}`}
         id={`frameScore${frame.FrameId}`}
         colSpan={6}

@@ -5,9 +5,9 @@ export type frameId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type frameIds = frameId | frameId10;
 type frameScore = number;
 
-class BaseFrame {
-  Roll1: PinnsDownType = 0;
-  Roll2: PinnsDownType = 0;
+export class BaseFrame {
+  Roll1: PinnsDownType = {} as PinnsDownType;
+  Roll2: PinnsDownType = {} as PinnsDownType;
 
   IsSpare: boolean = false;
   IsStrike: boolean = false;
@@ -27,5 +27,5 @@ export default class Frame extends BaseFrame {
 
 export class Frame10 extends BaseFrame {
   FrameId: frameId10 = 10;
-  Roll3: PinnsDownType = 0;
+  Roll3: PinnsDownType = {} as PinnsDownType;
 }

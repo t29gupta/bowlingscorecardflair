@@ -6,13 +6,21 @@ export const rollBowl3 = (
   CurrentFrame: Frame10,
   pinnsDropped: PinnsDownType,
   GameFrames: Map<frameIds, Frame | Frame10>,
-  dispatch: React.Dispatch<BowlAction>
+  dispatch: React.Dispatch<BowlAction>,
+  setInValidPinsCountPressed: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const curFrame = { ...CurrentFrame };
 
   // validate pinnes dropped. Roll3 is only possible if roll1 was strike
-  if (curFrame.Roll2 !== 10 && curFrame.Roll2 + pinnsDropped > 10) {
+  if (
+    curFrame.Roll1 === 10 &&
+    curFrame.Roll2 !== 10 &&
+    curFrame.Roll2 + pinnsDropped > 10
+  ) {
+    setInValidPinsCountPressed(true);
     return;
+  } else {
+    setInValidPinsCountPressed(false);
   }
 
   curFrame.Roll3 = pinnsDropped;
